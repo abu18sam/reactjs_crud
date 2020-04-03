@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+let baseUrl="https://reqres.in/api/";
+
 export default class CRUD extends Component {
 
     constructor(props) {
@@ -14,10 +16,9 @@ export default class CRUD extends Component {
     }
 
     async getUsersList() {
-        let data = await fetch("https://reqres.in/api/users?page=1");
+        let data = await fetch(baseUrl+"users?page=1");
         let users = await data.json();
-        console.log("usersList=> ", users);
-        this.setState({ usersList: users.data }, () => console.log("usersList=> ", this.state.usersList));
+        this.setState({ usersList: users.data });
     }
 
     handleEdit = async (user) => {
@@ -29,7 +30,18 @@ export default class CRUD extends Component {
     }
 
     handleDelete = async (user) => {
-
+        let url=`${baseUrl}users/${user.id}`;
+        let response= await fetch(url, {
+            method:"DELETE",
+            headers:{
+                "Content-type":"application/json"
+            }
+        });
+        let data=await response.json();
+        if(data){
+            alert("User Deleted Successfully")
+        }
+        console.log('response=> ',data);
     }
 
     render() {
