@@ -28,7 +28,7 @@ export default class CRUD extends Component {
 
     }
 
-    handleDelete = (user) => {
+    handleDelete = async (user) => {
 
     }
 
